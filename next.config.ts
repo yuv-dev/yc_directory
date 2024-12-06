@@ -9,8 +9,17 @@ const nextConfig: NextConfig = {
         protocol:"https",
         hostname:'*',
       }
-    ]
-  }
+    ],
+  },
+  experimental:{
+    after:true
+    // ppr:"incremental",
+  },
+  // devIndicators: {
+  //   appIsrStatus:true,
+  //   buildActivity:true,
+  //   buildActivityPosition:"bottom-right"
+  // }
 };
-
+  
 export default nextConfig;
