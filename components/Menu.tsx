@@ -14,9 +14,6 @@ const Menu = () => {
         <Link href="/">
           <li>Home</li>
         </Link>
-        <Link href="/startup/create">
-          <li>Create Startup</li>
-        </Link>
         <Link href="/about">
           <li>About</li>
         </Link>
