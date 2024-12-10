@@ -6,6 +6,7 @@ import { Button } from "./ui/button";
 import { Send } from "lucide-react";
 import { formSchema } from "@/lib/validation";
 import { useRouter } from "next/navigation";
+import { createPitch } from "@/lib/actions";
 
 const StartupForm = () => {
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -29,8 +30,6 @@ const StartupForm = () => {
       if (result.status == "SUCCESS") {
         router.push(`/startup/${result._id}`);
       }
-
-
     } catch (error) {
       console.log(error);
       // if (error instanceof z.ZodError) {

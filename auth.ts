@@ -4,7 +4,7 @@ import { client } from "./sanity/lib/client"
 import { AUTHOR_BY_GITHUB_ID_QUERY } from "@/sanity/lib/queries"
 import { writeClient } from "@/sanity/lib/write-client"
 
-export const { handlers, signIn, signOut, auth } = NextAuth({
+export const { handlers,auth, signIn, signOut } = NextAuth({
   providers: [GitHub],
   callbacks:{
 
@@ -14,43 +14,43 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       profile:{id, login, bio}
     }){
       
-      const existingUser = await client.withConfig({useCdn:false}).fetch(
-        AUTHOR_BY_GITHUB_ID_QUERY, {id:id});
+      const existingUser = await client
+                                      .withConfig({useCdn:false})
+                                      .fetch(AUTHOR_BY_GITHUB_ID_QUERY, {id});
         if(!existingUser) {
           await writeClient.create({
             _type:"author",
-            id :id,
-            name:name,
+            id,
+            name,
             username:login,
-            email:email,
-            image:image,
+            email,
+            image,
             bio:bio || ""
           })
         }
 
-        if(existingUser) return true;
+        return true;
     },
  
 
-    // // JWT TOKEN
-    // async jwt({token, account, profile}){
-    //   if(!account && profile) {
-    //     const  user = client.withConfig({useCdn:false}).fetch(AUTHOR_BY_GITHUB_ID_QUERY, {
-    //       id: profile?.id
-    //     });
+    // JWT TOKEN
+    async jwt({token, account, profile}){
+      if(account && profile) {
+        const  user = await client
+                           .withConfig({useCdn:false})
+                           .fetch(AUTHOR_BY_GITHUB_ID_QUERY, {
+                           id: profile?.id
+                          });
+                          
+          console.log("user:",user )
+          token.id = user?._id;
+        }
+        return token;
+    },
 
-    //     console.log(user)
-
-    //     if(!user) {
-    //       token.id = user?._id;
-    //     }
-    //     return token;
-    //   }
-    // },
-
-    // async session({session, token}){
-    //   Object.assign(session, {id:token.id});
-    //   return session;
-    // }
+    async session({session, token}){
+      Object.assign(session, {id:token.id});
+      return session;
+    }
   }
 })

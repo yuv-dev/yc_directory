@@ -3,7 +3,6 @@ import React from "react";
 import Logout from "./Logout";
 
 type Props = {
-  name: string;
   id: string;
 };
 
@@ -21,9 +20,6 @@ const Account: React.FC<Props> = ({ id }) => {
                     shadow-md  
                     duration-100 delay-100 z-10"
     >
-      <Link href="/startup/create">
-        <span>Create Startup</span>
-      </Link>
       <Link href={`/user/${id}`}>
         <span>Account</span>
       </Link>

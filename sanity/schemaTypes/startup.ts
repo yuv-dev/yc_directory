@@ -10,7 +10,7 @@ export const startup = defineType({
     icon:UserIcon,
     fields:[
 
-        defineField({
+        defineField({ 
             name:'title',
             type:'string'
         }),

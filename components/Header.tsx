@@ -35,7 +35,7 @@ const Header = async () => {
                 />
                 <h4 className="pl-4 font-medium">{session?.user?.name}</h4>
               </button>
-              <Account id={session?.user?.id} />
+              <Account id={session?.id} />
             </div>
           </>
         ) : (
