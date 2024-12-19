@@ -10,14 +10,12 @@ const StartupsByUser = async ({ id }: { id: string }) => {
 
   return (
     <>
-      {startupsByUser.length > 0 ? (
-        <>
-          {startupsByUser.map((startup: StartUpTypeCard) => {
-            return <StartUpCard key={startup._id} post={startup} />;
-          })}
-        </>
+      {startupsByUser?.length > 0 ? (
+        startupsByUser?.map((startup: StartUpTypeCard) => {
+          return <StartUpCard key={startup._id} post={startup} />;
+        })
       ) : (
-        <p>No startup found</p>
+        <p className="text-4xl font-semibold ">No startup found!</p>
       )}
     </>
   );
