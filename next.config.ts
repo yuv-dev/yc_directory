@@ -20,6 +20,16 @@ const nextConfig: NextConfig = {
   //   buildActivity:true,
   //   buildActivityPosition:"bottom-right"
   // }
+  async redirects() {
+    return [
+      // Basic redirect
+      {
+        source: '/about',
+        destination: '/',
+        permanent: true,
+      },
+    ]
+  },
 };
   
 export default nextConfig;

@@ -2,15 +2,15 @@
 import Form from "next/form";
 import React, { useActionState, useState } from "react";
 import MDEditor from "@uiw/react-md-editor";
-import { Button } from "./ui/button";
+import { Button } from "@/components/ui/button";
 import { Send } from "lucide-react";
 import { formSchema } from "@/lib/validation";
 import { useRouter } from "next/navigation";
 import { createPitch } from "@/lib/actions";
+import { z } from "zod";
 
 const StartupForm = () => {
   const [errors, setErrors] = useState<Record<string, string>>({});
-
   const [pitch, setPitch] = useState("");
   const router = useRouter();
 
@@ -30,12 +30,14 @@ const StartupForm = () => {
       if (result.status == "SUCCESS") {
         router.push(`/startup/${result._id}`);
       }
+      return result;
     } catch (error) {
       console.log(error);
-      // if (error instanceof z.ZodError) {
-      //   setErrors(fieldErrors as unknown as Record<string, string>);
-      //   return { ...prevState, error: "Validation" };
-      // }
+      if (error instanceof z.ZodError) {
+        const fieldErrors = error.flatten().fieldErrors;
+        setErrors(fieldErrors as unknown as Record<string, string>);
+        return { ...prevState, error: "Validation Failed", status: "ERROR" };
+      }
 
       return {
         ...prevState,
@@ -110,13 +112,14 @@ const StartupForm = () => {
           required
           placeholder="Startup Image URL"
         ></input>
-        {errors.category && <p className="startup-form">{errors.category} </p>}
+        {errors.link && <p className="startup-form">{errors.link} </p>}
       </div>
 
       <div data-color-mode="light" className=" flex flex-col">
         <label htmlFor="pitch" className="startup-form_label">
           Pitch
         </label>
+
         <MDEditor
           value={pitch}
           onChange={(value) => setPitch(value as string)}
@@ -132,11 +135,11 @@ const StartupForm = () => {
             disallowedElements: ["style"],
           }}
         />
-        {errors.category && <p className="startup-form">{errors.category} </p>}
+        {errors.pitch && <p className="startup-form">{errors.pitch} </p>}
       </div>
 
-      <Button type="submit" className="startup-form_btn">
-        {isPending ? "Submitting-- " : "Submit Your Pitch"}
+      <Button type="submit" className="startup-form_btn" disabled={isPending}>
+        {isPending ? "Submitting...." : "Submit Your Pitch"}
         <Send className="size-6 ml-2" />
       </Button>
     </Form>
