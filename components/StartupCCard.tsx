@@ -20,7 +20,7 @@ const StartUpCard = ({ post }: { post: StartUpTypeCard }) => {
   } = post;
 
   return (
-    <li className="startup-card group">
+    <li className="startup-card group ">
       <div className="flex-between">
         <p className="startup_card_date">{formatDate(_createdAt)}</p>
         <div className="flex gap-1.5">
@@ -29,7 +29,7 @@ const StartUpCard = ({ post }: { post: StartUpTypeCard }) => {
         </div>
       </div>
 
-      {/* Auhtor Description */}
+      {/* Author Description */}
       <div className="flex-between mt-5 gap-5">
         <div className="flex-1">
           <Link href={`/user/${author?._id}`}>
@@ -52,7 +52,7 @@ const StartUpCard = ({ post }: { post: StartUpTypeCard }) => {
 
       {/* Startup description */}
       <Link href={`/startup/${_id}`}>
-        <p className="startup-card_desc">{description}</p>
+        <p className="startup-card_desc ">{description}</p>
       </Link>
 
       {/* Startup Image */}

@@ -10,11 +10,10 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const session = auth();
   const user = await client.fetch(AUTHOR_BY_ID_QUERY, { id });
   if (!user) notFound();
-  console.log("**",session?.user, user)
+  console.log("**", session?.user, user);
 
   return (
-    <div className="min-h-screen">
-      <section className="profile_container flex flex-wrap ">
+      <section className="min-h-screen profile_container flex flex-wrap !p-10 !py-28 ">
         <div className="profile_card  !w-full">
           <div className="profile_title">
             <h3 className="text-24-black uppercase text-center line-clamp-1">
@@ -35,18 +34,17 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
           {/* user Bio */}
           <p className="mt-1 text-center text-14-normal">{user.bio}</p>
         </div>
-        <div>{session?._id === id ? (
-          <p className="text-4xl font-semibold">Your Startups</p>
-        ):(
-          <p className="text-4xl font-semibold"> Startups by {user.name}:</p>
-        )
-        }
+        <div>
+          {session?._id === id ? (
+            <p className="text-4xl font-semibold">Your Startups</p>
+          ) : (
+            <p className="text-4xl font-semibold"> Startups by {user.name}:</p>
+          )}
         </div>
-        <ul className="flex flex-wrap *:self-center border-black gap-10">
+        <ul className="mt-7 card_grid">
           <StartupsByUser id={id} />
         </ul>
       </section>
-    </div>
   );
 };
 

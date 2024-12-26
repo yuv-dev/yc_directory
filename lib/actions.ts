@@ -8,7 +8,7 @@ import { writeClient } from "@/sanity/lib/write-client";
 export const createPitch = async (
   state: any,
   form: FormData,
-  pitch: string,
+  pitch: string, 
 ) => {
   const session = await auth();
 
@@ -34,6 +34,7 @@ export const createPitch = async (
         _type: slug,
         current: slug,
       },
+      views:0,    
       author: {
         _type: "reference",
         _ref: session?.id,
