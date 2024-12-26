@@ -39,7 +39,7 @@ const StartUpCard = ({ post }: { post: StartUpTypeCard }) => {
             <h3 className="text-26-semibold line-clamp-1">{title}</h3>
           </Link>
         </div>
-        <Link href={`/user/${author?.id}`}>
+        <Link href={`/user/${author?._id}`}>
           <Image
             src="https://yuvraj.bigpixelweb.com/wp-content/uploads/2024/04/IMG_20230629_1441262.webp"
             alt="placeholder"
