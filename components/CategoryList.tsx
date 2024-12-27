@@ -3,7 +3,7 @@ import { STARTUPS_CATEGORY } from "@/sanity/lib/queries";
 import Link from "next/link";
 import React from "react";
 
-const CategoryList = async ({category} : {category:string} ) => {
+const CategoryList = async ({category} : {category:string | undefined} ) => {
   const allStartupCategories = await client.fetch(STARTUPS_CATEGORY);
   const categoryObject = {};
 

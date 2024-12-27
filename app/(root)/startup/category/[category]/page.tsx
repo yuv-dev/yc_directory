@@ -11,10 +11,10 @@ const page = async ({ params }: { params: Promise<{ category: string }> }) => {
 
   return (
     <div className="flex flex-col  bg-white-100">
-      <section className="pink_container !min-h-[100]">
-        <h1 className="text-4xl text-white"> {category}</h1>
+      <section className="pink_container !min-h-[100px]">
+        <h1 className="text-4xl text-white heading"> {category}</h1>
       </section>
-      
+
       {/* Category List Section */}
       <CategoryList category={category} />
      
