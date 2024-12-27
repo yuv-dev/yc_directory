@@ -4,6 +4,7 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Author, Startup } from "@/sanity.types";
+import Form from "next/form";
 
 export type StartUpTypeCard = Omit<Startup, "author"> & { author?: Author };
 
@@ -18,6 +19,8 @@ const StartUpCard = ({ post }: { post: StartUpTypeCard }) => {
     _id,
     image,
   } = post;
+
+  const categoryList = category?.split(",").map((ctg) => ctg.trim());
 
   return (
     <li className="startup-card group ">
@@ -72,7 +75,20 @@ const StartUpCard = ({ post }: { post: StartUpTypeCard }) => {
       </div>
       {/* Startup category */}
       <div className="flex justify-between mt-7 font-semibold">
-        <p className="">{category}</p>
+        <div className="flex flex-wrap">
+          {categoryList?.map((ctg) => {
+            return (
+              <Link key={ctg} href={`/startup/category/${ctg}`}>
+                <button
+                  type="submit"
+                  className="px-2 mr-1 rounded-full bg-red-100 text-black   border hover:border-primary "
+                >
+                  {ctg.toLowerCase()}
+                </button>
+              </Link>
+            );
+          })}
+        </div>
         <Link href={`/startup/${_id}`}>
           <button className="bg-black rounded-full hover:text-primary text-white px-4 py-1">
             Details

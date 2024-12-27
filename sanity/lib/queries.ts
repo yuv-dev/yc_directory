@@ -79,3 +79,23 @@ export const STARTUPS_BY_AUTHOR = defineQuery(
       image,
     }`
 );
+
+export const STARTUPS_BY_CATEGORY = defineQuery(
+  `*[_type == "startup" && category match $category] | order(_createdAt desc){
+      _id,
+      _createdAt,
+      views,
+      author,
+      title,
+      description,
+      category,
+      _id,
+      image,
+    }`
+);
+
+export const STARTUPS_CATEGORY = defineQuery(
+  `*[_type == "startup" ] {
+      category,
+    }`
+);

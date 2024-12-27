@@ -10,7 +10,6 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const session = auth();
   const user = await client.fetch(AUTHOR_BY_ID_QUERY, { id });
   if (!user) notFound();
-  console.log("**", session?.user, user);
 
   return (
       <section className="min-h-screen profile_container flex flex-wrap !p-10 !py-28 ">
